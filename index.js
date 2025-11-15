@@ -30,7 +30,6 @@ app.use((req,res,next)=>{
     next();
   }
   else{
-    console.log(req.path);
     session.url = req.path;
     res.redirect(`/login`);
   }

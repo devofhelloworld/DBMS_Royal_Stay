@@ -113,8 +113,10 @@ exports.getprofile = (req,res,next)=>{
     const hoteldata = data;
     guests.fetchdetails(req.params.useremail).then(([[userdata]])=>{
       reservations.fetchreservations(userdata.email).then(([reservationsdata])=>{
-        const todaysdate = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
-        res.render('profile',{isloggedin:req.session.isloggedin,useremail:req.session.useremail,userid:req.params.userid,hoteldata:hoteldata,userdata:userdata , reservationsdata:reservationsdata,todaysdate:todaysdate});
+        reservations.fetchpastreservations(userdata.email).then(([pastreservationsdata])=>{
+          const todaysdate = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate();
+          res.render('profile',{isloggedin:req.session.isloggedin,useremail:req.session.useremail,userid:req.params.userid,hoteldata:hoteldata,userdata:userdata , reservationsdata:reservationsdata,todaysdate:todaysdate,pastreservationsdata:pastreservationsdata});
+        })   
       })
     });
   }

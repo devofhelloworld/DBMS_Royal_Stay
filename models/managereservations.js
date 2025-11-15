@@ -73,6 +73,18 @@ module.exports = class reservations{
   }
 
   static fetchreservations(email){
-    return db.execute(`SELECT * FROM reservations WHERE email = '${email}' ORDER BY checkout DESC`)
+    const day = new Date().getDate();
+    const month = new Date().getMonth()+1;
+    const year = new Date().getFullYear();
+    const date = year + '-' + month + '-' + day;
+    return db.execute(`SELECT * FROM reservations WHERE email = '${email}'  AND checkout > '${date}' ORDER BY bookingtime DESC`);
+  }
+
+  static fetchpastreservations(email){
+    const day = new Date().getDate();
+    const month = new Date().getMonth()+1;
+    const year = new Date().getFullYear();
+    const date = year + '-' + month + '-' + day;
+    return db.execute(`SELECT * FROM reservations WHERE email = '${email}'  AND checkout <= '${date}' ORDER BY checkout DESC`);
   }
 }
