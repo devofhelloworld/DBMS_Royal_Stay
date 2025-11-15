@@ -24,38 +24,97 @@
 <body class="bg-gray-50">
     <!-- Navigation -->
      <div>
-    <nav class="fixed w-full bg-white shadow-md z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center">
-                    <h1 class="text-3xl font-playfair font-bold text-amber-800"><%=hoteldata.name%></h1>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="/" class="text-gray-700 hover:text-amber-800 transition">Home</a>
-                    <a href="/rooms" class="text-gray-700 hover:text-amber-800 transition">Rooms</a>
-                    <!-- <a href="#amenities" class="text-gray-700 hover:text-amber-800 transition">Amenities</a> -->
-                    <a href="/contact" class="text-gray-700 hover:text-amber-800 transition">Contact</a>
-                    <%if(isloggedin){ %>
-                        <a href="/logout" class="text-gray-700 hover:text-amber-800 transition">Logout</a>
-                   <% }else{ %>
-                    <a href="/login" class="text-gray-700 hover:text-amber-800 transition">Login</a>
-                   <% } %>
-               
-                    <% if(isloggedin){ %>
-                    <a href="/profile/<%= useremail%>" class="text-gray-700 hover:text-amber-800 transition">Profile</a>
-                    <% } %>
+        <nav class="fixed w-full bg-white shadow-md z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <div class="flex items-center">
+                        <h1 class="text-3xl font-playfair font-bold text-amber-800"><%=hoteldata.name%></h1>
+                    </div>
                     
-                    <a href="/adminlogin" target="_blank" class="text-gray-700 hover:text-amber-800 transition">Admin</a>
-                     </div>
-                <button class="hidden md:block bg-amber-800 text-white px-6 py-2 rounded-full hover:bg-amber-900 transition">
-                    <a href="/book">Book Now</a>
-                </button>
-                <button class="md:hidden text-gray-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+                    <!-- Desktop Navigation -->
+                    <div id="desktop-menu" class="hidden md:flex space-x-8">
+                        <a href="/" class="text-gray-700 hover:text-amber-800 transition">Home</a>
+                        <a href="/rooms" class="text-gray-700 hover:text-amber-800 transition">Rooms</a>
+                        <a href="/contact" class="text-gray-700 hover:text-amber-800 transition">Contact</a>
+                        <%if(isloggedin){ %>
+                            <a href="/logout" class="text-gray-700 hover:text-amber-800 transition">Logout</a>
+                        <% }else{ %>
+                            <a href="/login" class="text-gray-700 hover:text-amber-800 transition">Login</a>
+                        <% } %>
+                        <% if(isloggedin){ %>
+                            <a href="/profile/<%= useremail%>" class="text-gray-700 hover:text-amber-800 transition">Profile</a>
+                        <% } %>
+                        <a href="/adminlogin" target="_blank" class="text-gray-700 hover:text-amber-800 transition">Admin</a>
+                    </div>
+                    
+                    <button class="hidden md:block bg-amber-800 text-white px-6 py-2 rounded-full hover:bg-amber-900 transition">
+                        <a href="/book">Book Now</a>
+                    </button>
+                    
+                    <!-- Hamburger Button -->
+                    <button id="menu-toggle" class="md:hidden text-gray-700" aria-label="Toggle menu" aria-expanded="false">
+                        <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu -->
+                <div id="mobile-menu" class="hidden md:hidden pb-4">
+                    <div class="flex flex-col space-y-3">
+                        <a href="/" class="text-gray-700 hover:text-amber-800 transition py-2 px-4 hover:bg-amber-50 rounded">Home</a>
+                        <a href="/rooms" class="text-gray-700 hover:text-amber-800 transition py-2 px-4 hover:bg-amber-50 rounded">Rooms</a>
+                        <a href="/contact" class="text-gray-700 hover:text-amber-800 transition py-2 px-4 hover:bg-amber-50 rounded">Contact</a>
+                        <%if(isloggedin){ %>
+                            <a href="/logout" class="text-gray-700 hover:text-amber-800 transition py-2 px-4 hover:bg-amber-50 rounded">Logout</a>
+                        <% }else{ %>
+                            <a href="/login" class="text-gray-700 hover:text-amber-800 transition py-2 px-4 hover:bg-amber-50 rounded">Login</a>
+                        <% } %>
+                        <% if(isloggedin){ %>
+                            <a href="/profile/<%= useremail%>" class="text-gray-700 hover:text-amber-800 transition py-2 px-4 hover:bg-amber-50 rounded">Profile</a>
+                        <% } %>
+                        <a href="/adminlogin" target="_blank" class="text-gray-700 hover:text-amber-800 transition py-2 px-4 hover:bg-amber-50 rounded">Admin</a>
+                        <a href="/book" class="bg-amber-800 text-white px-6 py-2 rounded-full hover:bg-amber-900 transition text-center">Book Now</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
-</div>
+        </nav>
+    </div>
+
+        <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const closeIcon = document.getElementById('close-icon');
+            
+            menuToggle.addEventListener('click', () => {
+                // Toggle menu visibility
+                mobileMenu.classList.toggle('hidden');
+                
+                // Toggle icons
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+                
+                // Update aria-expanded for accessibility
+                const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                menuToggle.setAttribute('aria-expanded', !isExpanded);
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnToggle = menuToggle.contains(event.target);
+                
+                if (!isClickInsideMenu && !isClickOnToggle && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    hamburgerIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        </script>
+        
+        

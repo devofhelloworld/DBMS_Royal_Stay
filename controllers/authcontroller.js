@@ -2,6 +2,7 @@ const session = require("express-session");
 const guests = require("../models/manageguests");
 const managehotel = require("../models/managehotel");
 const manageadmin = require("../models/manageadmin");
+const { destroy } = require("../utils/databaseutil");
 
 exports.login = (req,res,next)=>{
   managehotel.gethotelinfo().then(([[data]])=>{
@@ -39,6 +40,7 @@ exports.postsignup = (req,res,next)=>{
 
 exports.postlogin = (req,res,next)=>{
   const {email,password} = req.body;
+  console.log(session.url);
 
   managehotel.gethotelinfo().then(([[data]])=>{
     const hoteldata = data;
@@ -48,7 +50,12 @@ exports.postlogin = (req,res,next)=>{
         if(data.password==password){
         req.session.isloggedin = true;
         req.session.useremail = data.email;
-        res.redirect('/');
+          if(session.url!='/searchresults'){
+          res.redirect(`${session.url}` || '/');
+          }
+          else{
+            res.redirect('/'); 
+          }
         }
         else{
           res.render('login',{isloggedin:req.session.isloggedin,useremail: req.session.useremail,hoteldata:hoteldata});
@@ -63,6 +70,7 @@ exports.postlogin = (req,res,next)=>{
 }
 
 exports.logout = (req,res,next)=>{
+  session.url = '/';
   req.session.isloggedin = false;
   res.redirect('/login');
 }
